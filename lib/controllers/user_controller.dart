@@ -21,7 +21,6 @@ class UserController extends GetxController {
   Future<void> fetchUsers({bool refresh = false}) async {
     if (refresh) {
       page.value = 1; // Reset page for refresh
-      users.clear(); // Clear existing data
     }
 
     if (isLoading.value || !hasMore.value)
@@ -31,6 +30,8 @@ class UserController extends GetxController {
     try {
       final response = await http.get(Uri.parse(
           'https://reqres.in/api/users?page=${page.value}&per_page=${perPage}'));
+
+         print(response.body); 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
     
